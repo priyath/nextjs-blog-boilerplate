@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { Box, CssBaseline, Grid, Typography } from '@mui/material';
 import BlogPostSummary from '../components/BlogPostSummary';
 import { IBlogPost } from '../components/types';
+import { posts } from '../data/dummyData';
 
 interface HomeProps {
   posts: IBlogPost[];
@@ -42,18 +43,6 @@ const Home: NextPage<HomeProps> = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const posts = [
-    {
-      title: 'My First Blog Post',
-      slug: 'first-post',
-      publishedDate: '02-06-2022',
-    },
-    {
-      title: 'My Second Blog Post',
-      slug: 'second-post',
-      publishedDate: '01-05-2022',
-    },
-  ];
   return { props: { posts } };
 };
 
