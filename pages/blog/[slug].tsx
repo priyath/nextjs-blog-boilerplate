@@ -3,11 +3,13 @@ import { Box, Container, Divider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import BlogPostHeader from '../../components/BlogPostHeader';
 import { IFrontMatter } from '../../components/types';
+import { posts } from '../../data/dummyData';
 
 interface IBlogProps {
   frontMatter: IFrontMatter;
 }
-export default function Blog({ frontMatter }: IBlogProps) {
+
+const Blog = ({ frontMatter }: IBlogProps) => {
   return (
     <>
       <Container
@@ -45,4 +47,28 @@ export default function Blog({ frontMatter }: IBlogProps) {
       </Container>
     </>
   );
+};
+
+export async function getStaticPaths() {
+
+  return {
+    paths: posts.map((post) => ({
+      params: {
+        slug: post.slug,
+      },
+    })),
+    fallback: false,
+  };
 }
+
+export async function getStaticProps({ params }: any) {
+  const frontMatter = posts.find(post => post.slug === params.slug);
+  return {
+    props: {
+      frontMatter,
+    }
+  };
+}
+
+
+export default Blog;
