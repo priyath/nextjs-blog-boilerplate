@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import { Box, CssBaseline, Grid, Typography } from '@mui/material';
 import BlogPostSummary from '../components/BlogPostSummary';
 import { IBlogPost } from '../components/types';
-import { posts } from '../data/dummyData';
 import { getAllFilesFrontMatter } from '../lib/getContent';
 
 interface HomeProps {
