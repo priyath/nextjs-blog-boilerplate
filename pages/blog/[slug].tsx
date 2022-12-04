@@ -6,6 +6,7 @@ import { IFrontMatter } from '../../components/types';
 import { posts } from '../../data/dummyData';
 import { getFileBySlug, getFiles } from '../../lib/getContent';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import MDXComponents from '../../components/MDXComponents/MDXComponents';
 
 interface IBlogProps {
   mdxSource: MDXRemoteSerializeResult;
@@ -45,7 +46,7 @@ const Blog = ({ mdxSource, frontMatter }: IBlogProps) => {
               marginX: 'auto',
             }}
           />
-          <MDXRemote {...mdxSource} components={undefined} />
+          <MDXRemote {...mdxSource} components={MDXComponents} />
         </Box>
       </Container>
     </>

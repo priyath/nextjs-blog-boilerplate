@@ -9,6 +9,7 @@ const BlogH2 = (props: any) => {
         marginTop: { xs: 4, md: 6 },
         marginBottom: 2,
         fontWeight: 'bold',
+        color: 'red'
       }}
     >
       {props.children}
