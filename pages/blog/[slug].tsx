@@ -5,12 +5,14 @@ import BlogPostHeader from '../../components/BlogPostHeader';
 import { IFrontMatter } from '../../components/types';
 import { posts } from '../../data/dummyData';
 import { getFileBySlug, getFiles } from '../../lib/getContent';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 interface IBlogProps {
+  mdxSource: MDXRemoteSerializeResult;
   frontMatter: IFrontMatter;
 }
 
-const Blog = ({ frontMatter }: IBlogProps) => {
+const Blog = ({ mdxSource, frontMatter }: IBlogProps) => {
   return (
     <>
       <Container
@@ -43,7 +45,7 @@ const Blog = ({ frontMatter }: IBlogProps) => {
               marginX: 'auto',
             }}
           />
-          {/* TBA: blog content goes here */}
+          <MDXRemote {...mdxSource} components={undefined} />
         </Box>
       </Container>
     </>

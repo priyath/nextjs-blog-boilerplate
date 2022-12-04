@@ -17,7 +17,6 @@ export const getFileBySlug = async (type: string, slug: string) => {
   // parse the file content using gray-matter
   const { data, content } = matter(source);
 
-  //TODO: Serialise the content using MDX. For now, we will simply use an empty object for the mdx source.
   const mdxSource = await serialize(content);
 
   return {
