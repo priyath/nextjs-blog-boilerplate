@@ -1,8 +1,34 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import { serialize } from 'next-mdx-remote/serialize';
 
 const root = process.cwd();
+
+export const getFiles = async (type: string) => {
+  return fs.readdirSync(path.join(root, 'data', type));
+};
+
+export const getFileBySlug = async (type: string, slug: string) => {
+  const source = slug
+    ? fs.readFileSync(path.join(root, 'data', type, `${slug}.mdx`), 'utf8')
+    : fs.readFileSync(path.join(root, 'data', `${type}.mdx`), 'utf8');
+
+  // parse the file content using gray-matter
+  const { data, content } = matter(source);
+
+  //TODO: Serialise the content using MDX. For now, we will simply use an empty object for the mdx source.
+  const mdxSource = await serialize(content);
+
+  return {
+    mdxSource,
+    frontMatter: {
+      wordCount: content.split(/\s+/gu).length,
+      slug: slug || null,
+      ...data,
+    },
+  };
+};
 
 /**
  Parse specified <type> subdirectory inside the data folder and return list of parsed blog post content

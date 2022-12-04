@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import BlogPostHeader from '../../components/BlogPostHeader';
 import { IFrontMatter } from '../../components/types';
 import { posts } from '../../data/dummyData';
+import { getFileBySlug, getFiles } from '../../lib/getContent';
 
 interface IBlogProps {
   frontMatter: IFrontMatter;
@@ -50,11 +51,12 @@ const Blog = ({ frontMatter }: IBlogProps) => {
 };
 
 export async function getStaticPaths() {
+  const posts = await getFiles('blog');
 
   return {
-    paths: posts.map((post) => ({
+    paths: posts.map((p) => ({
       params: {
-        slug: post.slug,
+        slug: p.replace(/\.mdx/, ''),
       },
     })),
     fallback: false,
@@ -62,12 +64,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const frontMatter = posts.find(post => post.slug === params.slug);
-  return {
-    props: {
-      frontMatter,
-    }
-  };
+  const post = await getFileBySlug('blog', params.slug);
+
+  return { props: post };
 }
 
 

@@ -11,6 +11,8 @@ const BlogPostSummary = (props: BlogPostSummaryProps) => {
 
   const { post, key } = props;
 
+  console.log('post: ', post);
+
   return (
     <Box key={key} sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <NextLink href={`/blog/${post.slug}`} passHref>
